@@ -20,12 +20,12 @@ class Plan < ApplicationRecord
     deadline.present? && deadline < Time.current
   end
 
-  def update_status
-    if deadline_passed? || all_polls_filled?
-      assign_bar
-      update(status: :done)
-    end
-  end
+  # def update_status
+  #   if deadline_passed? || all_polls_filled?
+  #     assign_bar
+  #     update(status: :done)
+  #   end
+  # end
 
   # private
   # def assign_bar
