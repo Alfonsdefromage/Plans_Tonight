@@ -73,53 +73,49 @@
         data-map-markers-value="<%= @marker.to_json %>"
         data-map-api-key-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>">
       </div>
-
-
-      <!-- Friends -->
-      <div style="margin-top: 32px;">
-        <h2>FRIENDS GOING</h2>
-      </div>
-      <div class="grid-container m-0">
-        <% @plan.users.where.not(id: current_user).each do |user| %>
-          <div class="avatar-sqr-1">
-            <% if user.photo.attached? %>
-              <%= cl_image_tag user.photo.key, class: "avatar-sqr-1-container"  %>
-            <% else %>
-              <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" class="avatar-photo" />
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-
-      <div class="grid-6" style="margin-top: 16px;">
-        <h1>THE FINAL RESULTS</h1>
-      </div>
-
-      <div class="grid-6" style="margin-top: 16px;">
-        <h2>WHAT'S THE VIBE?</h2>
-      </div>
-      <div class="grid-6" id="mood_submitted">
-        <%= turbo_stream_from "plan_#{plan.id}_mood_submitted" %>
-        <%= render "plans/mood_submitted", plan: plan %>
-      </div>
-
-
-      <div class="grid-6" style="margin-top: 16px;">
-        <h2>WHAT'RE WE DRINKING?</h2>
-      </div>
-      <div class="grid-6" id="mood_submitted">
-        <%= turbo_stream_from "plan_#{plan.id}_drinking_submitted" %>
-        <%= render "plans/drinking_submitted", plan: plan %>
-      </div>
-
     </div>
 
 
-    <div class="grid-6" style="margin-top: 8px">
-      <%= link_to "Back", user_plans_path(current_user), class: "plans-btn", style: "display: flex; justify-content: center; align-items: center;" %>
+    <!-- Friends -->
+    <div style="margin-top: 32px;">
+      <h2>FRIENDS GOING</h2>
     </div>
-    <div class="grid-6" style="margin-top: 8px">
-      <%= link_to 'Home', root_path, class: 'plans-btn'%>
+    <div class="grid-container m-0">
+      <% @plan.users.where.not(id: current_user).each do |user| %>
+        <div class="avatar-sqr-1">
+          <% if user.photo.attached? %>
+            <%= cl_image_tag user.photo.key, class: "avatar-sqr-1-container"  %>
+          <% else %>
+            <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" class="avatar-photo" />
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="grid-6" style="margin-top: 16px;">
+      <h1>THE FINAL RESULTS</h1>
+    </div>
+
+    <div class="grid-6" style="margin-top: 16px;">
+      <h2>WHAT'S THE VIBE?</h2>
+    </div>
+    <div class="grid-6" id="mood_submitted">
+      <%= turbo_stream_from "plan_#{plan.id}_mood_submitted" %>
+      <%= render "plans/mood_submitted", plan: plan %>
+    </div>
+
+    <div class="grid-6" style="margin-top: 16px;">
+      <h2>WHAT'RE WE DRINKING?</h2>
+    </div>
+    <div class="grid-6" id="mood_submitted">
+      <%= turbo_stream_from "plan_#{plan.id}_drinking_submitted" %>
+      <%= render "plans/drinking_submitted", plan: plan %>
     </div>
   </div>
+</div>
+
+
+<div class="grid-container">
+  <%= link_to "Back", user_plans_path(current_user), class: "plans-btn grid-6" %>
+  <%= link_to 'Home', root_path, class: 'plans-btn grid-6' %>
 </div>
