@@ -2,11 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
 
-  resources :users, only: [:show, :index] do
-    resources :plans, only: [:index]
-  end
+  resources :users, only: [:show, :index]
 
-  resources :plans, only: [:show, :create, :new, :post, :update] do
+  resources :plans, only: [:show, :index, :create, :new, :post, :update] do
     member do
       get 'invitation'
       post 'invite'

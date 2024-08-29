@@ -3,8 +3,9 @@
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
 </head> %>
 <!-- app/views/plans/show.html.erb -->
+<%= turbo_stream_from "plan_#{@plan.id}" %>
 <% if @plan.bar.nil? %>
-  <%= render 'shared/waiting_show', plan: @plan  %>
+  <%= render 'shared/waiting_show', plan: @plan, marker: nil %>
 <% else %>
-  <%= render 'shared/confirmation_show', plan: @plan %>
+  <%= render 'shared/confirmation_show', plan: @plan, marker: @marker %>
 <% end %>

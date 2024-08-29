@@ -45,9 +45,22 @@ class Plan < ApplicationRecord
 
     # Save the changes
     self.save
+    broadcast_plan
   end
 
   private
+
+  def broadcast_plan
+    @marker = [
+      {
+        lat: bar.latitude,
+        lng: bar.longitude
+      }
+    ]
+    broadcast_replace_to "plan_#{id}",
+                        partial: "shared/confirmation_show",
+                        locals: { plan: self, marker: @marker }
+  end
 
   def set_deadline
     self.deadline = date_time - 1.hour

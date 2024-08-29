@@ -1,19 +1,25 @@
-<div id="drinking_submitted" class="grid-container m-0">
+<div id="drinking_submitted" class="grid-container m-0" style="display: flex; flex-direction: column;">
   <% { "Craft Beer" => "🍺", "Lemon Sour" => "🍋", "Whiskey" => "🥃", "Cocktail" => "🍹", "Wine" => "🍷", "Anything" => "🥂" }.each do |alcohol, emoji| %>
 
     <% if plan.polls.where(submitted: true, alcohol: alcohol).exists? %>
       <div>
-        <div>
-          <p style="font-size: 32px;" class="poll-emoji grid-1"><%= emoji %></p>
+        <div class="grid-container m-0">
+          <div>
+            <div class="grid-1">
+              <p style="font-size: 32px;" class="poll-emoji"><%= emoji %></p>
+            </div>
+            <div class="grid-1">
+              <p style="font-size: 10px; display: flex; justify-content: center; margin-top: 4px;"><%= alcohol.capitalize%><p>
+            </div>
+          </div>
+          <div>
+            <% plan.polls.where(submitted: true, alcohol: alcohol).each do |poll| %>
+              <div class="grid-1">
+                <%= render "polls/subpoll", poll: poll %>
+              </div>
+            </div>
+          <% end %>
         </div>
-        <div>
-          <p style="font-size: 10px; display: flex; justify-content: center; margin-top: 4px;"><%= alcohol.capitalize%><p>
-        </div>
-      </div>
-      <div>
-        <% plan.polls.where(submitted: true, alcohol: alcohol).each do |poll| %>
-          <%= render "polls/subpoll", poll: poll %>
-        <% end %>
       </div>
     <% end %>
   <% end %>
