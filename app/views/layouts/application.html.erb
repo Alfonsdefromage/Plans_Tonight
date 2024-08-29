@@ -8,6 +8,8 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Turbo Morphing -->
+    <meta name="turbo-refresh-method" content="replace">
     <!-- GOOGLE FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,8 +21,6 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
     <%= render 'shared/ios_pwa_links' %>
-
-
   </head>
   <body class="<%= @body_class %>">
     <%# <% unless params[:controller] == "pages" && params[:action] == "home" %>
@@ -28,7 +28,6 @@
     <%# <% end %>
     <%# <%= render "shared/flashes" %>
     <%# <%= render 'shared/navbar' %>
-
     <%= yield %>
   </body>
 </html>

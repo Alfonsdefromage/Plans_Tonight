@@ -1,12 +1,11 @@
-<div class="grid-container">
-
+<div class="grid-container" id="plan_<%= plan.id  %>">
   <div class="grid-6">
     <h1><span style="font-size: 32px;">BREWING</span><br>
-    <span class="big-text yellow-text">YOUR<br>
-    PLANS</span><br></h1>
+      <span class="big-text yellow-text">YOUR<br>
+        PLANS</span><br>
+    </h1>
     <h2>FOR <%= plan.date_time.strftime("%B %d, at %H:%M").upcase %></h2>
   </div>
-
   <div style="display: flex; align-items: center; gap: 10px;" class="grid-6" style="margin-top: 8px;">
     <div>
       <p style="font-size: 16px;">Brewing finished in:</p>
@@ -14,9 +13,6 @@
     <div data-controller="countdown" data-countdown-deadline-value="<%= plan.deadline.present? ? plan.deadline.strftime('%Y-%m-%dT%H:%M:%S') : '' %>" data-countdown-target="countdown" style="font-family: 'Poppins', sans-serif; font-size: 16px;">
     </div>
   </div>
-
-
-
   <div class="grid-6" style="margin-top: 16px;">
     <h2>SUBMITTED POLLS:</h2>
   </div>
@@ -24,7 +20,6 @@
     <%= turbo_stream_from "plan_#{plan.id}_submitted" %>
     <%= render "plans/submitted", plan: plan %>
   </div>
-
   <div class="grid-6" style="margin-top: 16px;">
     <h2>WHAT'S THE VIBE?</h2>
   </div>
@@ -32,22 +27,18 @@
     <%= turbo_stream_from "plan_#{plan.id}_mood_submitted" %>
     <%= render "plans/mood_submitted", plan: plan %>
   </div>
-
-
   <div class="grid-6" style="margin-top: 16px;">
     <h2>WHAT'RE WE DRINKING?</h2>
   </div>
-  <div class="grid-6" id="mood_submitted">
+  <div class="grid-6" id="drinking_submitted">
     <%= turbo_stream_from "plan_#{plan.id}_drinking_submitted" %>
     <%= render "plans/drinking_submitted", plan: plan %>
   </div>
-
-</div>
-
-<div class="grid-container">
-  <% if current_user == @plan.user %>
-    <%= link_to "Close poll", plan_path(@plan), method: :patch, class: "plans-btn grid-6", data: { turbo_method: :patch, turbo_confirm: "Are you sure you want to close the poll now?" } %>
-  <% end %>
-  <%= link_to "Back", user_plans_path(current_user), class: "plans-btn grid-6" %>
-  <%= link_to 'Home', root_path, class: 'plans-btn grid-6' %>
+  <div class="grid-6" style="margin-top: 16px;">
+    <% if current_user == @plan.user %>
+      <%= link_to "Close poll", plan_path(@plan), method: :patch, class: "plans-btn grid-6", data: { turbo_method: :patch, turbo_confirm: "Are you sure you want to close the poll now?" } %>
+    <% end %>
+    <%= link_to "Back", plans_path, class: "plans-btn grid-6", style: "margin-top: 8px;" %>
+    <%= link_to 'Home', root_path, class: 'plans-btn grid-6', style: "margin-top: 8px;" %>
+  </div>
 </div>

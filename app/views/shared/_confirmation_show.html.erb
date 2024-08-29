@@ -5,7 +5,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 <div class="particles-js"  data-controller="confetti-click">
 </div>
-<div class="grid-container">
+<div class="grid-container" id="plan_<%= plan.id  %>">
   <div class="show-title">
     <div>
       <div class="show-title">
@@ -20,32 +20,32 @@
     <!-- Bar Image-->
     <div class="image-bar" style="margin-top: 24px;">
       <div class="image">
-        <% @bar.photo %>
-        <%= cl_image_tag @bar.photo.key, width: 800, height: 450, crop: :fill, class: "img-fluid", style: "border-radius: 16px;", alt: "Main image" %>
+        <% plan.bar.photo %>
+        <%= cl_image_tag plan.bar.photo.key, width: 800, height: 450, crop: :fill, class: "img-fluid", style: "border-radius: 16px;", alt: "Main image" %>
       </div>
     </div>
     <!-- Bar Description -->
     <div class="description-container" style="padding-top: 32px;">
       <div class="bar-description">
         <div style="margin-bottom: 16px;">
-          <h2><%= @bar.name.upcase %></h2>
-          <h3><i class="fa-solid fa-location-dot" style="color: #FFD74D;"></i> <%= @bar.address %></h3>
+          <h2><%= plan.bar.name.upcase %></h2>
+          <h3><i class="fa-solid fa-location-dot" style="color: #FFD74D;"></i> <%= plan.bar.address %></h3>
         </div>
         <div class="bar-description-details"  style="display: flex; justify-content: space-between;">
           <div class="column-left">
-            <% if @plan.date_time < DateTime.now + 1.week %>
-              <h3><strong><%= @plan.date_time.strftime("%A") %></strong></h3>
+            <% if plan.date_time < DateTime.now + 1.week %>
+              <h3><strong><%= plan.date_time.strftime("%A") %></strong></h3>
             <% else %>
-              <h3><strong></strong><%= @plan.date_time.strftime("%a, %d %b") %></h3>
+              <h3><strong><%= plan.date_time.strftime("%a, %d %b") %></strong></h3>
             <% end %>
-            <h3><strong><%= @plan.date_time.strftime("%I:%M%p") %></strong></h3>
+            <h3><strong><%= plan.date_time.strftime("%I:%M%p") %></strong></h3>
             <div class="show-icons">
-              <% if @bar.smoking %>
+              <% if plan.bar.smoking %>
                 <i class="fas fa-smoking" style="color: #161616;">  </i>
               <% else %>
                 <i class="fa-solid fa-ban-smoking" style="color: #161616;"></i>
               <% end %>
-              <% if @bar.food %>
+              <% if plan.bar.food %>
                 <i class="fas fa-utensils" style="color: #161616;"></i>
               <% else %>
                 <i class="fa-solid fa-utensils" style="color: #adadad;"></i>
@@ -53,9 +53,9 @@
             </div>
           </div>
           <div class="column-right">
-            <h3><strong><%= @bar.mood.upcase %></strong></h3>
-            <h3><strong><%= @bar.alcohol.upcase %></strong></h3>
-            <h3><strong><%= @bar.price %></strong></h3>
+            <h3><strong><%= plan.bar.mood.upcase %></strong></h3>
+            <h3><strong><%= plan.bar.alcohol.upcase %></strong></h3>
+            <h3><strong><%= plan.bar.price %></strong></h3>
             <h3><strong></strong></h3>
           </div>
         </div>
@@ -63,38 +63,34 @@
     </div>
     <!-- Add to Calendar -->
     <div class="show-element" style="margin-top: 32px;">
-      <%= link_to 'View Website', @bar.url, class: "plans-btn" %>
+      <%= link_to 'View Website', plan.bar.url, class: "plans-btn" %>
     </div>
     <!-- Map -->
     <div style="margin-top: 32px;">
       <h1>MAP</h1>
       <div style="width: 100%; height: 200px; margin-top: 16px;"
         data-controller="map"
-        data-map-markers-value="<%= @marker.to_json %>"
+        data-map-markers-value="<%= marker.to_json %>"
         data-map-api-key-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>">
       </div>
-
-
       <!-- Friends -->
       <div style="margin-top: 32px;">
         <h2>FRIENDS GOING</h2>
       </div>
       <div class="grid-container m-0">
-        <% @plan.users.where.not(id: current_user).each do |user| %>
+        <% plan.users.each do |user| %>
           <div class="avatar-sqr-1">
             <% if user.photo.attached? %>
-              <%= cl_image_tag user.photo.key, class: "avatar-sqr-1-container"  %>
+              <%= cl_image_tag user.photo.key, class: "avatar-sqr-1-container avatar-sqr-1"  %>
             <% else %>
               <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" class="avatar-photo" />
             <% end %>
           </div>
         <% end %>
       </div>
-
       <div class="grid-6" style="margin-top: 16px;">
         <h1>THE FINAL RESULTS</h1>
       </div>
-
       <div class="grid-6" style="margin-top: 16px;">
         <h2>WHAT'S THE VIBE?</h2>
       </div>
@@ -106,7 +102,7 @@
       <div class="grid-6" style="margin-top: 16px;">
         <h2>WHAT'RE WE DRINKING?</h2>
       </div>
-      <div class="grid-6" id="mood_submitted">
+      <div class="grid-6" id="drinking_submitted">
         <%= turbo_stream_from "plan_#{plan.id}_drinking_submitted" %>
         <%= render "plans/drinking_submitted", plan: plan %>
       </div>
