@@ -1,15 +1,12 @@
-<div id="submitted" class="grid-container m-0">
-
-<div>
+<div id="submitted" class="grid-container m-0" style="display; flex: flex-directon: row;">
   <% plan.polls.where(submitted: true).each do |poll| %>
-    <%= render "polls/poll", poll: poll, style: "border: solid 3px #FFD74D" %>
+    <div class="grid-1">
+      <%= render "polls/poll", poll: poll, style: "border: solid 3px #FFD74D" %>
+    </div>
   <% end %>
-</div>
-
-<div>
   <% plan.polls.where(submitted: false).each do |poll| %>
-    <%= render "polls/poll", poll: poll, style: "opacity: 50%; box-shadow: none;" %>
+    <div class="grid-1">
+      <%= render "polls/poll", poll: poll, style: "opacity: 50%; box-shadow: none;" %>
+    </div>
   <% end %>
-</div>
-
 </div>

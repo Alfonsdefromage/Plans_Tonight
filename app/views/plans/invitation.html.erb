@@ -1,28 +1,29 @@
-<div class="grid-container">
+<div class="grid-container-invitations">
   <div class="grid-6">
-    <h1><span class="h1-white">TIME TO</span><br><span class="big-text">INVITE FRIENDS<span></h1>
-  </div>
-  <div class="plan-index-container grid-6">
-    <% @users.where.not(id: current_user).each do |user| %>
-      <div class="card-friend">
-        <% if user.photo.attached? %>
-          <%= cl_image_tag user.photo.key, class:"avatar" %>
-        <% else %>
-          <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
-        <% end %>
-        <div class="card-friend-infos">
-          <h3 style="margin-bottom: 0px;"><%= user.username.capitalize %></h3>
-          <% if @plan.polls.find_by(user: user) %>
-            <%= render "shared/invited_btn" %>
-          <% else %>
-            <%= link_to "Invite", invite_plan_path(@plan, user_id: user.id), class: "invite-button", data: { turbo_method: :post }, id: "invite-#{user.id}" %>
-          <% end %>
-        </div>
+    <h1><span class="h1-white">TIME TO</span><br>
+      <span class="big-text">INVITE FRIENDS<span></h1>
       </div>
-    <% end %>
-  </div>
-</div>
-<div class="footer">
-  <%= link_to "Complete your plans", user_plans_path(current_user), class:"homepage-button", style: "margin-top:0px;"  %>
-  <%= link_to "Stop planning", root_path, class: "cancel-plans", style: "margin-top: 12px; color: #FAFAFA" %>
-</div>
+      <div class="plan-index-container grid-6">
+        <% @users.where.not(id: current_user).each do |user| %>
+          <div class="card-friend">
+            <% if user.photo.attached? %>
+              <%= cl_image_tag user.photo.key, class:"avatar" %>
+            <% else %>
+              <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
+            <% end %>
+            <div class="card-friend-infos">
+              <h3 style="margin-bottom: 0px;"><%= user.username.capitalize %></h3>
+              <% if @plan.polls.find_by(user: user) %>
+                <%= render "shared/invited_btn" %>
+              <% else %>
+                <%= link_to "Invite", invite_plan_path(@plan, user_id: user.id), class: "invite-button", data: { turbo_method: :post }, id: "invite-#{user.id}" %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="footer">
+      <%= link_to "Complete your plans", user_plans_path(current_user), class:"homepage-button", style: "margin-top:0px;"  %>
+      <%= link_to "Stop planning", root_path, class: "cancel-plans", style: "margin-top: 12px; color: #FAFAFA" %>
+    </div>

@@ -1,13 +1,16 @@
 <div class="grid-container">
   <div>
-    <h1 class="big-text"> YOUR<br>
-      PLANS!</h1>
+    <h1><span class="h1-white">CHECK OUT</span><br>
+      <span class="big-text"> YOUR<br>
+      PLANS!</span></h1>
   </div>
   <%= render "brewing_plans", plans: @brewing_plans if @brewing_plans.any? %>
   <%= render "upcoming_plans", plans: @completed_plans if @completed_plans.any? %>
   <%= render "no_brewing" if @brewing_plans.empty? && @completed_plans.empty? %>
   <!-- Upcoming Plans (Completed) -->
-</div>
-<div class="grid-6">
-  <%= link_to 'Home', root_path, class: 'plans-btn' %>
+
+  <div class="grid-6">
+    <%= link_to 'Home', root_path, class: 'plans-btn', style: "margin-top: 24px;" %>
+  </div>
+
 </div>
