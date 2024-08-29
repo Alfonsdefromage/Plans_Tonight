@@ -37,13 +37,10 @@ class Plan < ApplicationRecord
     location = location.capitalize
     update(deadline: DateTime.now, status: :done)
 
-    # Find the first bar in the given location
     self.bar = Bar.where(location: location).first
 
-    # If no bar is found in the given location, fallback to a random bar
     self.bar ||= Bar.all.sample
 
-    # Save the changes
     self.save
   end
 

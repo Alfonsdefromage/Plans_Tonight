@@ -103,7 +103,6 @@
         <%= render "plans/mood_submitted", plan: plan %>
       </div>
 
-
       <div class="grid-6" style="margin-top: 16px;">
         <h2>WHAT'RE WE DRINKING?</h2>
       </div>
@@ -111,15 +110,12 @@
         <%= turbo_stream_from "plan_#{plan.id}_drinking_submitted" %>
         <%= render "plans/drinking_submitted", plan: plan %>
       </div>
-
-    </div>
-
-
-    <div class="grid-6" style="margin-top: 8px">
-      <%= link_to "Back", user_plans_path(current_user), class: "plans-btn", style: "display: flex; justify-content: center; align-items: center;" %>
-    </div>
-    <div class="grid-6" style="margin-top: 8px">
-      <%= link_to 'Home', root_path, class: 'plans-btn'%>
     </div>
   </div>
+</div>
+
+
+<div class="grid-container">
+  <%= link_to "Back", user_plans_path(current_user), class: "plans-btn grid-6" %>
+  <%= link_to 'Home', root_path, class: 'plans-btn grid-6' %>
 </div>
