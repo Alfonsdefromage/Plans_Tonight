@@ -2,10 +2,18 @@
   display: grid;
   gap: 8px;
   grid-template-columns: repeat(6, 1fr);
-  width: auto;
+  width: 100%;
   max-width: 800px;
-  margin: 32px;
+  margin: 32px auto;
 }
+
+// @media (max-width: 480px) {
+//   .grid-container {
+//     grid-template-columns: 1fr;
+//     margin: 8px auto;
+//     padding: 0 8px;
+// }
+// }
 
 .form-container {
   display: grid;
