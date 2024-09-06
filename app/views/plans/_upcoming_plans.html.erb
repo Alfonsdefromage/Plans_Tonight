@@ -2,31 +2,29 @@
   <h2 style="margin-top: 24px;">UPCOMING PLANS</h2>
   <% plans.order('created_at DESC').each do |plan| %>
     <% if plan.users.include?(current_user) && plan.bar != nil %>
-      <div class="col-md-4">
-        <%= link_to plan_path(plan), class: 'card-btn' do %>
-          <div class="card" style="box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.25);">
-            <%= image_tag plan&.bar&.photo&.attached? ? url_for(plan.bar.photo) : 'https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg', alt: 'plan photo', class: 'card-img-top' %>
-            <div class="card-body" style="margin-top: 12px;">
-              <% if plan.bar %>
-                <h5 class="card-title" style="font-family: 'Poppins', sans-serif;"><%= plan.bar.name %></h5>
-                <% if plan.date_time < DateTime.now + 1.week %>
-                  <h6 class="card-title" style="font-family: 'Poppins', sans-serif;"><%= plan.date_time.strftime("%A at %I:%M%p") %></h5>
-                <% else %>
-                  <h6 class="card-title" style="font-family: 'Poppins', sans-serif;"><%= plan.date_time.strftime("%a, %d %b at %I:%M%p") %></h5>
-                <% end %>
+      <%= link_to plan_path(plan), class: 'card-btn' do %>
+        <div class="card" style="box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.25);">
+          <%= image_tag plan&.bar&.photo&.attached? ? url_for(plan.bar.photo) : 'https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg', alt: 'plan photo', class: 'card-img-top' %>
+          <div class="card-body" style="margin-top: 12px;">
+            <% if plan.bar %>
+              <h5 class="card-title" style="font-family: 'Poppins', sans-serif;"><%= plan.bar.name %></h5>
+              <% if plan.date_time < DateTime.now + 1.week %>
+                <h6 class="card-title" style="font-family: 'Poppins', sans-serif;"><%= plan.date_time.strftime("%A at %I:%M%p") %></h5>
+              <% else %>
+                <h6 class="card-title" style="font-family: 'Poppins', sans-serif;"><%= plan.date_time.strftime("%a, %d %b at %I:%M%p") %></h5>
               <% end %>
-              <p class="card-text">FRIENDS GOING</p>
-              <div class="friends-plan-index">
-                <% plan.users.where.not(id: current_user).first(5).each do |user| %>
-                  <div class="avatar-circle-small">
-                    <% if user.photo.attached? %>
-                      <%= cl_image_tag user.photo.key, class: "avatar-photo" %>
-                    <% else %>
-                      <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" class="avatar-photo" />
-                    <% end %>
-                  </div>
-                <% end %>
-              </div>
+            <% end %>
+            <p class="card-text">FRIENDS GOING</p>
+            <div class="friends-plan-index">
+              <% plan.users.where.not(id: current_user).first(5).each do |user| %>
+                <div class="avatar-circle-small">
+                  <% if user.photo.attached? %>
+                    <%= cl_image_tag user.photo.key, class: "avatar-photo" %>
+                  <% else %>
+                    <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" class="avatar-photo" />
+                  <% end %>
+                </div>
+              <% end %>
             </div>
           </div>
         <% end %>
